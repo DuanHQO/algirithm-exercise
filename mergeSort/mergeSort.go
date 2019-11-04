@@ -22,10 +22,11 @@ func merge(left []int, right []int) (result []int) {
 			if left[m] < right[n] {
 				result = append(result, left[m])
 				m ++
-				continue
+			} else {
+				//这里可以统计逆序对， count += len(left) - m
+				result = append(result, right[n])
+				n ++
 			}
-			result = append(result, right[n])
-			n ++
 		}
 	}
 	result = append(result, left[m:]...)
