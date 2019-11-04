@@ -1,7 +1,7 @@
 package main
 
 import (
-	"algorithm/linkedList"
+	"algorithm/sortfunc"
 	"fmt"
 	"math/rand"
 	"time"
@@ -19,19 +19,19 @@ func main() {
 	//sortfunc.InsertionSort(origin)
 	//sortfunc.ShellSort(origin)
 
-	list := new(linkedList.List)
-	list.CopyFromArray(origin)
-	list.MergeSort()
 
-	//fmt.Printf("%v", origin)
+	//list := new(linkedList.List)
+	//list.CopyFromArray(origin)
+	//list.MergeSort()
 
-	origin1 := []int32{"cz","aa","kz","cd","cc","ab"}
-	origin2 := []int32{"kz","ae","aa","ad","ac","al"}
-	origin3 := []int32{"bz","bb","aa","bd","bc","kz"}
+	sortfunc.Quick3way(origin, 0, len(origin) - 1)
+
+	fmt.Printf("%v", origin)
 
 
 
 	fmt.Println()
+
 }
 
 

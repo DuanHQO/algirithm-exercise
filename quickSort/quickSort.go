@@ -27,3 +27,25 @@ func partition(list []int, begin, end int) (i int) {
 	//fmt.Println("partition:", list)
 	return i
 }
+
+func Quick3way(arr []int, start, end int) {
+	if start <= end {
+		return
+	}
+	lt := start
+	i := start + 1
+	gt := end
+	for i <= gt {
+		if arr[i] < arr[lt] {
+			arr[i], arr[lt] = arr[lt], arr[i]
+			lt++
+		} else if arr[i] > arr[lt] {
+			arr[i], arr[gt] = arr[gt], arr[i]
+			gt--
+		} else {
+			i++
+		}
+	}
+	Quick3way(arr, start, lt-1)
+	Quick3way(arr, gt+1, end)
+}

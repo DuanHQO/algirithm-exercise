@@ -2,12 +2,23 @@ package linkedList
 
 import "fmt"
 
-type Object interface {
+type IComparable interface {
+	CompareTo(other IComparable) int
+}
 
+type data int
+
+func (d data) CompareTo(data2 data) (result int)  {
+	if d < data2 {
+		return -1
+	} else if d > data2 {
+		return 1
+	}
+	return 0
 }
 
 type Node struct {
-	Data int
+	Data data
 	Next *Node
 }
 
@@ -40,15 +51,15 @@ func (this *List) Length() int {
 	return count
 }
 
-func (this *List) Add(data int) *Node  {
-	node := &Node{Data:data}
+func (this *List) Add(arg int) *Node  {
+	node := &Node{Data: data(arg)}
 	node.Next = this.headNode
 	this.headNode = node
 	return node
 }
 
-func (this *List) Append(data int)  {
-	node := &Node{Data : data}
+func (this *List) Append(arg int)  {
+	node := &Node{Data : data(arg)}
 	if this.IsEmpty() {
 		this.headNode = node
 	}else {
@@ -60,11 +71,11 @@ func (this *List) Append(data int)  {
 	}
 }
 
-func (this *List) Insert(index int, data int)  {
+func (this *List) Insert(index int, number int)  {
 	if index <= 0 {
-		this.Add(data)
+		this.Add(number)
 	}else if index >= this.Length(){
-		this.Append(data)
+		this.Append(number)
 	}else{
 		pre := this.headNode
 		count := 0
@@ -72,19 +83,19 @@ func (this *List) Insert(index int, data int)  {
 			pre = pre.Next
 			count ++
 		}
-		node := &Node{Data:data}
+		node := &Node{Data: data(number)}
 		node.Next = pre.Next
 		pre.Next = node
 	}
 }
 
-func (this *List) Remove(data int) {
+func (this *List) Remove(number int) {
 	pre := this.headNode
-	if pre.Data == data {
+	if pre.Data == data(number) {
 		this.headNode = pre.Next
 	} else {
 		for pre.Next != nil {
-			if pre.Next.Data == data {
+			if pre.Next.Data == data(number) {
 				pre.Next = pre.Next.Next
 			} else {
 				pre = pre.Next
@@ -117,10 +128,10 @@ func (this *List) GetHeadNode() *Node  {
 	return nil
 }
 
-func (this *List) Contains(data Object) bool {
+func (this *List) Contains(number int) bool {
 	cur := this.headNode
 	for cur != nil {
-		if cur.Data == data {
+		if cur.Data == data(number) {
 			return true
 		}
 		cur = cur.Next
